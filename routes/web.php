@@ -1,7 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Request;
+
+$url = Request::path(); // atau Request::url() untuk full URL
+
 // Ambil URL dari request
-$url = $_SERVER['REQUEST_URI'];
+//$url = $_SERVER['REQUEST_URI'];
 
 // Hilangkan karakter awal `/` jika ada
 $url = ltrim($url, '/');
@@ -79,4 +83,8 @@ Route::name('admin.')->group(function(){
 Route::resource('/user', 'ManagementUserController');
 Route::get("/home", function(){
     return view("home");
+});
+
+Route::group(['namespace' => 'backend'], function() {
+    Route::resource('dashboard', 'DashboardController');
 });
