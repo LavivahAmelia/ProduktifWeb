@@ -37,6 +37,10 @@ Route::middleware(['first', 'second'])->group(function () {
     });
 });
 
+Route::group(['namespase' => 'frontend'], function () {
+    Route::resource('home', 'HomeController');
+});
+
 // Namespace untuk rute admin
 Route::namespace('App\Http\Controllers\Admin')->group(function () {
     // Tambahkan controller yang sesuai jika ada
@@ -72,3 +76,7 @@ Route::resource('dashboard', DashboardController::class);
 Route::get('/home', function () {
     return view('home');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
