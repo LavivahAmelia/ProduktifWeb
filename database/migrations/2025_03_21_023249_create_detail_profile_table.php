@@ -4,31 +4,28 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDetailProfileTableNew extends Migration
+return new class extends Migration
 {
     /**
-     * Jalankan migrasi.
-     *
-     * @return void
+     * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('detail_profile', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('address');
-            $table->date('ttl'); // Mengganti ttl dengan nama lebih jelas
+            $table->string('nomor_tlp');
+            $table->date('ttl');
             $table->string('foto');
             $table->timestamps();
         });
     }
-}
-    /**
-     * Undo migrasi.
-     *
-   //  * @return void
-     */
-   // public function down()
-   // {
- //       Schema::dropIfExists('detail_profile');
-  //  }
 
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('detail_profile');
+    }
+};
