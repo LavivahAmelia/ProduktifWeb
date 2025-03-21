@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Middleware\CheckAge;
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('check.age');
 
 // Rute utama
 Route::get('/', function () {
@@ -80,3 +85,31 @@ Route::get('/home', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('admin/profile' ,function() {
+
+})->middleware('auth');
+
+Route::get('/' ,function() {
+    //
+})->middleware('first','second');
+
+Route::get('admin/profile', function() {
+    //
+})->middleware(CheckAge::class);
+
+Route::get('/', function() {
+    //
+})->middleware('web');
+
+Route::group(['middleware' => ['web']], function() {
+    //
+});
+
+Route::middleware(['web', 'subscribed'])->group(function() {
+    //
+});
+
+Route::put('post/{id}', function ($id) {
+    //
+})->middleware('role:editor');
